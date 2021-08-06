@@ -5,42 +5,41 @@
 
 using namespace std;
 
-struct MeetingInfo
+class MeetingInfo
 {
+public:
     int meetingId;
     int userId;
     char *Msg;
     time_t dataTime;
-} MeetingInfo;
+};
 
-struct Calendar
+class Calendar
 {
-    vector <struct MeetingInfo> MeetingInfoarray;
+public:
+    vector <MeetingInfo> MeetingInfoarray;
     int maxMeetingId;
 
-    Calendar()//êîíñòðóêòîð
+    Calendar()//ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€
     {
-       maxMeetingId=-1;
-       struct MeetingInfo a={0,0,"\0"};
-       Calendar::pusharray(a);
+        maxMeetingId=-1;
+    }
+    ~Calendar()//Ð´ÐµÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€
+    {
+        MeetingInfoarray.clear();
     }
 
-    int pusharray(struct MeetingInfo a)//ìåòîä äîáàâëåíèÿ â ìàññèâ
+    int pusharray(MeetingInfo a)//Ð¼ÐµÑ‚Ð¾Ð´ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð² Ð¼Ð°ÑÑÐ¸Ð²
     {
-        struct MeetingInfo * b = new struct MeetingInfo;
-        b->meetingId=this->maxMeetingId+1;
-        b->Msg=a.Msg;
-        b->userId=a.userId;
-        b->dataTime=a.dataTime;
-
-        this->MeetingInfoarray.push_back(*b);
-        this->maxMeetingId++;
+        maxMeetingId++;
+        a.meetingId=maxMeetingId;
+        MeetingInfoarray.push_back(a);
         return 0;
     }
 
 };
 
-void print(struct MeetingInfo a)
+void print(MeetingInfo a)
 {
     cout << a.meetingId << "\n" << a.userId << "\n" << a.Msg << endl;
 }
@@ -48,7 +47,7 @@ void print(struct MeetingInfo a)
 int main()
 {
     cout << "Hello world!\n";
-    struct MeetingInfo a={10,1,"Hello"};
+    MeetingInfo a= {10,1,"Hello"};
     //print(a);
     Calendar b;
     b.pusharray(a);
